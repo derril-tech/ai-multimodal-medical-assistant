@@ -1,0 +1,104 @@
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+gunicorn==21.2.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Database
+sqlalchemy==2.0.23
+alembic==1.13.1
+asyncpg==0.29.0
+psycopg2-binary==2.9.9
+
+# Authentication & Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+python-dotenv==1.0.0
+
+# AI & ML
+langchain==0.1.0
+langchain-openai==0.0.2
+langchain-community==0.0.10
+openai==1.6.1
+anthropic==0.7.8
+transformers==4.36.2
+torch==2.1.2
+numpy==1.24.4
+pandas==2.1.4
+
+# Medical & Healthcare
+fhirclient==3.2.0
+pydicom==2.4.3
+wfdb==4.1.2
+scikit-learn==1.3.2
+hl7==0.4.4
+snomed-ct==0.1.0
+rxnorm==0.1.0
+loinc==0.1.0
+icd10cm==0.1.0
+
+# Medical Terminology & Standards
+fhir-resources==1.0.0
+fhirpath==1.0.0
+fhir-kit-client==1.0.0
+terminology-service==0.1.0
+
+# Drug Interaction & Safety
+drug-interactions==0.1.0
+contraindication-checker==0.1.0
+pediatric-dosing==0.1.0
+duplicate-therapy==0.1.0
+
+# De-identification & Privacy
+phi-redactor==0.1.0
+consent-manager==0.1.0
+tokenization==0.1.0
+audit-logger==0.1.0
+
+# Vector Search & Embeddings
+pgvector==0.2.4
+sentence-transformers==2.2.2
+
+# Real-time Communication
+websockets==12.0
+socketio==5.10.0
+
+# Storage & File Handling
+boto3==1.34.0
+google-cloud-storage==2.10.0
+python-magic==0.4.27
+
+# Speech & Audio
+openai-whisper==20231117
+pydub==0.25.1
+
+# Image Processing
+Pillow==10.1.0
+opencv-python==4.8.1.78
+
+# Monitoring & Observability
+structlog==23.2.0
+prometheus-client==0.19.0
+sentry-sdk[fastapi]==1.38.0
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx==0.25.2
+factory-boy==3.3.0
+
+# Development
+black==23.11.0
+isort==5.12.0
+flake8==6.1.0
+mypy==1.7.1
+pre-commit==3.6.0
+
+# Utilities
+redis==5.0.1
+celery==5.3.4
+click==8.1.7
+rich==13.7.0
+typer==0.9.0

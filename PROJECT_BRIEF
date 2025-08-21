@@ -1,0 +1,273 @@
+# THE PROJECT BRIEF #
+
+# Project Name #
+Multimodal AI Medical Assistant
+
+# Product Description / Presentation #
+
+Multimodal AI Medical Assistant — Build Brief 
+
+This document outlines the technical and architectural specifications for the Multimodal AI Medical Assistant. It includes detailed backend and frontend architecture lists to guide development.
+1. BACKEND ARCHITECTURE (Extensive)
+•	Frameworks & Core: FastAPI (async), Python 3.11 preferred, Pydantic v2, SQLAlchemy 2.0 (async), Uvicorn/Gunicorn.
+•	Authentication & Authorization: JWT (access/refresh), optional SMART-on-FHIR/OIDC SSO, RBAC (clinician/admin/triage-only/reader).
+•	API Surface: REST endpoints for patients, encounters, documents, observations (labs/vitals), medications/allergies, imaging, waveforms, notes, tasks, orders, care-plans, consent, audit, and admin.
+•	Realtime Communication: WebSockets for live consults, streaming transcription, token-based generation, presence indicators, and alerts.
+•	Database: PostgreSQL with Alembic migrations; JSONB for guideline hits, model traces, and visualization metadata.
+•	Vector Search: pgvector for embeddings of notes, guidelines, imaging impressions, and patient education materials.
+•	RAG Ingestion: Connectors for public guidelines (CDC/WHO/NICE), institutional protocols, and textbook excerpts with metadata tracking.
+•	Terminology Integration: SNOMED CT, RxNorm, LOINC, ICD-10-CM with caching for value-set expansions.
+•	EHR Connectors: FHIR R4 resources (Patient, Encounter, Observation, Condition, Procedure, MedicationStatement, ImagingStudy, CarePlan).
+•	DICOM Pipeline: DICOMweb APIs, pydicom parsing, de-identification, PHI tag scrubbing, and secure imaging storage.
+•	Waveform & ECG: WFDB ingestion, rhythm detection helpers, and structured metadata extraction.
+•	Speech & OCR: Whisper for STT, TTS for education, OCR for scanned medical notes.
+•	Agent Orchestration: LangGraph for deterministic, resumable flows with human approval gates.
+•	Safety Services: Contraindication checker, drug–drug interaction detection, duplicate therapy detector, pediatric dosing flags.
+•	Explainability: Provenance with source URLs, guideline sections, uncertainty scoring, and rationale JSON output.
+•	De-identification & Consent: PHI redaction, consent registry, opt-out flags, reversible tokenization for linking.
+•	Scheduling & Jobs: Redis streams/queues for ingestion, embedding, guideline refresh, and summarization.
+•	Storage: S3/GCS with server-side encryption, signed URLs, immutable audit buckets, DICOM object storage.
+•	Observability: Structured logging, trace IDs, metrics, anomaly detection, and alerting.
+•	Audit & Governance: Append-only audit logs, version-pinned models, exportable audit bundles for compliance.
+•	Configuration: 12‑factor principles, feature flags, model/provider routing, seeded synthetic patients for demos.
+•	Compliance Hooks: Consent checks, minimum-necessary data filter, break-glass emergency access with auditing.
+2. FRONTEND ARCHITECTURE (Extensive)
+•	Stack: Next.js 14 (App Router), React 18, TypeScript, TailwindCSS, shadcn/ui.
+•	State Management: React Query for FHIR data, Zustand/Context for UI state, Zod schemas for validation.
+•	Routing: /patients, /encounters/:id/{triage|summary|imaging|labs|orders|education|audit|settings}, /consults, /admin, /guidelines.
+•	Chart Summary Canvas: Timeline of vitals/labs/notes, differential diagnosis chips, red-flag callouts.
+•	Imaging Viewer: CornerstoneJS DICOM viewer, presets, MPR, annotations, and PHI toggle overlays.
+•	Waveform Viewer: ECG rhythm display, measurements drawer, export to PDF, note linking.
+•	Orders Composer: Structured order sets mapped to FHIR, rationale fields with citations, inline safety warnings.
+•	Clinician Copilot Chat: Multimodal chat with retrieval tools, banners for decision support disclaimers.
+•	Dictation & Notes: Real-time STT with templates, auto-citation insertion, coding assist suggestions.
+•	Patient Education Studio: Readability controls, multilingual options, export to print/email with audit.
+•	Collaboration: Presence indicators, shared comments, assignments, review/approval gates before export.
+•	Accessibility & UX: WCAG 2.1 AA compliance, high-contrast themes, motion reduction, alert styling.
+•	Internationalization: ICU-based i18n, support for metric/imperial units, multilingual UI.
+•	Performance: Optimized hydration, edge caching, bundle splitting, streaming SSR.
+•	Security: Session management, CSRF prevention, secure cookies, strict Content Security Policy.
+
+
+
+
+FOLLOW THIS 8 STEP PLAN TO PREPARE THE INFRASTRUCTURE
+-----------------------------------------------------
+
+# 🚀 Claude Fullstack Repo Prep – Optimized 8 Step Plan
+
+  
+The goal: build an extensive frontend + backend scaffold so Claude Code only has to finish ~20% of the work.  
+Each step must be **completed and reviewed** before advancing.
+IMPORTANT: YOU ARE BUILDING ONLY THE INFRASTRUCTURE OF THE APPLICATION NOT THE APPLICATION ITSELF !!!. FOLLOW THE STEPS IN NUMERICAL ORDER !!! starting from step 1.
+You are doing the groundwork for the application, including setting up the folder structure, configuration files, and any necessary boilerplate code.
+IMPORTANT: the checklist in each step has to be checked off 100% before moving to the next step
+
+---
+
+## STEP 1 — Build the Rich Infrastructure
+Create a **deep scaffold** for both frontend and backend so Claude code can recognize the architecture immediately.
+
+- Build a **frontend app shell** with routing, placeholder pages, components, and styling setup.  
+- Build a **backend app shell** with API structure, health endpoint, and config in place.  
+- Include `REPO_MAP.md`, `API_SPEC.md`, and a draft `CLAUDE.md` in the `docs/` folder.  (create the docs folder if it does not exist)
+- Add **TODO markers and folder-level `_INSTRUCTIONS.md`** files so Claude knows exactly where to add logic.
+
+**Deliverables**
+- Frontend app shell with routing, placeholder pages, components, and styling setup  
+- Backend app shell with API structure, health endpoint, and config  
+- `docs/REPO_MAP.md`, `docs/API_SPEC.md` (stub), and draft `docs/CLAUDE.md`  
+- TODO markers + folder-level `_INSTRUCTIONS.md` files  
+
+**Checklist**
+- [ ] Frontend scaffold built  
+- [ ] Backend scaffold built 
+- [ ] Docs folder created with drafts (`REPO_MAP.md`, `API_SPEC.md`, `CLAUDE.md`)  
+- [ ] TODO markers and `_INSTRUCTIONS.md` stubs in place  
+
+---
+
+## STEP 2 — Enrich the Scaffold
+If the repo looks shallow, enrich it so Claude needs fewer leaps of imagination.  
+
+Add:
+- Sample frontend routes and components (`/`, `/about`, `/dashboard`)  
+- Domain model stubs and types/interfaces  
+- Mock data + fixtures for UI flows  
+- README files with quick run instructions for both frontend and backend  
+- Instructions embedded in folders (e.g. `CLAUDE_TASK: …`)
+
+**Deliverables**
+- Sample routes and pages (`/`, `/about`, `/dashboard`)  
+- Domain model stubs and type definitions  
+- Mock data and fixtures for UI flows  
+- README files for frontend and backend with run instructions  
+- Folder-level instructions (`_INSTRUCTIONS.md`)  
+
+**Checklist**
+- [ ] At least 2–3 sample routes/pages exist  
+- [ ] Domain types/interfaces stubbed out  
+- [ ] Mock data + fixtures included  
+- [ ] README_FRONTEND.md and README_BACKEND.md added  
+- [ ] Each folder has `_INSTRUCTIONS.md` where relevant 
+
+---
+
+## STEP 3 — Audit for Alignment
+Check that the scaffold actually matches the product brief, tech specs, and UX goals.
+Add additional UI/UX elements (if needed) to make the application visually appealing (and update the design requirements after that)
+
+- Do navigation and pages reflect the product’s main flows?  
+- Do API endpoints match the UI needs?  
+- Is the chosen tech stack consistent (no unused or conflicting libraries)?  
+- Is the UX direction reflected (design tokens, layout, component stubs)?
+
+**Deliverables**
+- Alignment review across Product ↔ UI/UX ↔ Tech  
+- Identify any missing flows, mismatched libraries, or conflicting instructions  
+
+**Checklist**
+- [ ] Navigation structure matches product journeys  
+- [ ] Components/pages map to required features  
+- [ ] API endpoints cover MVP needs  
+- [ ] No contradictory or unused technologies  
+
+---
+
+## STEP 4 — Document the Architecture
+Now make the docs **Claude-ready**:
+
+- **REPO_MAP.md**: Full repo breakdown with roles of each folder  
+- **API_SPEC.md**: Endpoints, payloads, error handling  
+- **CLAUDE.md**: Editing rules, coding conventions, AI collaboration guidelines  
+
+These three files are the **context backbone** Claude will use to understand the repo.
+
+**Deliverables**
+- `REPO_MAP.md`: full repo breakdown with folder purposes  
+- `API_SPEC.md`: endpoints, models, error conventions  
+- `CLAUDE.md`: collaboration rules, editing boundaries  
+
+**Checklist**
+- [ ] REPO_MAP.md fully describes structure  
+- [ ] API_SPEC.md covers all MVP endpoints and schemas  
+- [ ] CLAUDE.md includes project overview, editing rules, examples  
+
+---
+
+## STEP 5 — Improve the Prompt
+Enhance the prompt (in `docs/PROMPT_DECLARATION.md`) with details Claude needs:
+
+- FE/BE boundaries and data contracts  
+- UX guidelines (states, accessibility, interaction patterns)  
+- Performance budgets (bundle size, API latency)  
+- Security constraints (auth, rate limits, PII handling)  
+- Testing expectations (unit, integration, end-to-end)
+
+**Deliverables**
+- FE/BE boundaries and contracts  
+- UX guidelines (states, accessibility, patterns)  
+- Performance budgets (bundle size, latency targets)  
+- Security constraints (auth, PII, rate limits)  
+- Testing expectations  
+
+**Checklist**
+- [ ] Prompt includes FE/BE division of responsibility  
+- [ ] UX principles and design tokens specified  
+- [ ] Performance/security/testing requirements added  
+- [ ] Prompt is concrete and actionable for Claude  
+
+---
+
+## STEP 6 — Expert Audit of the Prompt
+Now do a **meticulous audit** of the one-page prompt declaration.
+
+- Add Frontend Architecture, Backend Architecture, Design requirements, Core Integrations, Success Criteria, Implementation Guidelines and Security & Compliance categories from this Project Brief to the prompt declaration.
+- Remove inconsistencies, duplicates, or unused technologies  
+- Ensure Tech Stack → Product → Scaffold alignment (no mismatches)  
+- Add UI/UX details that make the product visually appealing and usable  
+- Double-check frontend and backend folders are ready  
+- Confirm editing boundaries are clear (what Claude can/can’t touch)  
+- Make the declaration **battle-tested and handoff-ready**
+
+**Deliverables**
+- Remove inconsistencies/duplicates  
+- Ensure stack ↔ product ↔ scaffold alignment  
+- Add UI/UX and accessibility details  
+- Clarify file boundaries (editable vs do-not-touch)  
+- Confirm prompt uses Claude-friendly syntax  
+
+**Checklist**
+- [ ] No unused or contradictory tech remains  
+- [ ] UI/UX directives are product-specific and sufficient  
+- [ ] Editing boundaries explicitly defined  
+- [ ] Prompt syntax uses clear, imperative instructions  
+
+---
+
+## STEP 7 — Bird’s-Eye Repo Review
+Do a quick top-level scan for missing pieces:
+
+- All folders contain either code or `_INSTRUCTIONS.md`  
+- `.env.example` files exist for both frontend and backend  
+- CI/CD config is present and not trivially broken  
+- Run scripts (`npm run dev`, `uvicorn …`) work end-to-end  
+- No orphan TODOs without clear ownership
+
+**Deliverables**
+- Verify all core files exist  
+- Confirm environment, CI, and scripts work end-to-end  
+
+**Checklist**
+- [ ] Every folder has code or `_INSTRUCTIONS.md`  
+- [ ] `.env.example` present for both frontend and backend  
+- [ ] CI pipeline triggers and passes basic checks  
+- [ ] Dev script (`scripts/dev.sh`) runs both FE and BE  
+
+---
+
+## STEP 8 — Finalize CLAUDE.md
+This is where Claude gets its **onboarding pack**. Make sure `CLAUDE.md` includes:
+
+- **Project Overview**: one-paragraph purpose, stack, goals, target users  
+- **Folder & File Structure**: what’s editable vs do-not-touch  
+- **Coding Conventions**: style guides, naming rules, commenting expectations  
+- **AI Collaboration Rules**: response format, edit rules, ambiguity handling  
+- **Editing Rules**: full-file vs patches, locked files  
+- **Dependencies & Setup**: frameworks, services, env vars  
+- **Workflow & Tools**: how to run locally, FE/BE boundary, deployment notes  
+- **Contextual Knowledge**: product quirks, domain rules, business logic caveats  
+- **Examples**: good vs bad AI answer
+
+**Deliverables**
+- Project overview (purpose, stack, goals, users)  
+- Folder & file structure with editable vs do-not-touch  
+- Coding conventions (style, naming, commenting)  
+- AI collaboration rules (response style, edit rules, ambiguity handling)  
+- Dependencies and setup instructions  
+- Workflow, deployment notes, contextual knowledge  
+- Good vs bad answer examples  
+- Fill out all the missing information in the CLAUDE.md file
+
+**Checklist**
+- [ ] Project overview section filled in  
+- [ ] File boundaries clearly defined  
+- [ ] Coding/style conventions included  
+- [ ] AI collaboration & editing rules written  
+- [ ] Dependencies & env notes covered  
+- [ ] Workflow & deployment info added  
+- [ ] Contextual knowledge documented  
+- [ ] Good vs bad examples included  
+- [ ] CLAUDE.md file does not miss any important information
+
+---
+
+# ✅ Outcome
+When this 8-step plan is followed:
+- The repo is a **rich, opinionated scaffold** (80% done).  
+- Docs give Claude **clear boundaries + context**.  
+- The one-page prompt is **battle-tested** and aligned.  
+- Claude Code can safely and efficiently generate the missing 20%.  
+
+
+
